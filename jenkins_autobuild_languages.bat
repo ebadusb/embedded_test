@@ -23,10 +23,6 @@ set residue=%sandboxDirectory%\residue_taos
 set buildDirectory=k:\BCT_Development\optia_perforce\language_builds
 set perforce_tools=.
 
-rem Point torvarsDirectory to the dir where Torvars.bat is located.
-set torvarsDirectory=C:\Tornado2.2\host\x86-win32\bin
-set torvarsScript=torVars.bat
-
 rem ----------------------------------------------------------------------------
 rem No modifications below this line
 rem ----------------------------------------------------------------------------
@@ -42,7 +38,6 @@ echo ===============================================================
 set startDate=%date%
 set startTime=%time%
 
-
 rem Need the perforce user name from the build environment.
 set user_name=%P4USER%
 
@@ -52,7 +47,6 @@ rem ----------------------------------------------------------------------------
 
 echo.
 echo Cleaning up directories from previous build. Please wait ...
-
 
 if exist %sandboxDirectory% ( 
    rmdir /S /Q %sandboxDirectory%
@@ -73,11 +67,11 @@ mkdir %residue%
 
 rem If this is an autobuild, the build number is already supplied in NEWVERSION.
 if "" == "%AUTOBUILD%" (
-   echo Enter build number ( #.# )
+   echo "Enter build number ( #.# )"
    set /p build=
 ) else (
    echo Building %NEWVERSION%
-   SET build=%NEWVERSION%
+   set build=%NEWVERSION%
 )
 
 rem ----------------------------------------------------------------------------
@@ -166,7 +160,7 @@ if "%build%" == "" (
 )
 
 rem ----------------------------------------------------------------------------
-rem Display the build number.
+rem         Display the build number.
 rem ----------------------------------------------------------------------------
 
 echo Build Number: %build%
@@ -209,7 +203,7 @@ rem ----------------------------------------------------------------------------
 set workspace=%residue%\workspace.tmp
 
 rem ----------------------------------------------------------------------------
-rem Mark date and time at the start of the build
+rem         Mark date and time at the start of the build
 rem ----------------------------------------------------------------------------
 
 set buildStartDate=%date%
@@ -263,22 +257,20 @@ rem
 rem        Build the project.
 rem
 rem ----------------------------------------------------------------------------
-echo Building Taos Languages project 
-echo Building Taos Languages project >> %sandboxDirectory%\create.log 
+echo Building Taos Languages project
+echo Building Taos Languages project >> %sandboxDirectory%\create.log
 
 pushd %sandboxDirectory%
 
 rem ----------------------------------------------------------------------------
 rem
-rem        Set the Torvars variables
+rem        Set the WindRiver environment
+rem        (this is done in Jenkins now via Build Environment Properties and Windows batch script)
 rem
 rem ----------------------------------------------------------------------------
 
-echo Setting the Torvars variables
-echo Setting the Torvars variables >> %sandboxDirectory%\create.log
-@echo on
-call %torvarsDirectory%\%torvarsScript% 
-@echo off
+echo Setting the WindRiver environment
+echo Setting the WindRiver environment >> %sandboxDirectory%\create.log
 
 rem ----------------------------------------------------------------------------
 rem
@@ -337,7 +329,7 @@ goto removeClient
 
 rem ----------------------------------------------------------------------------
 rem
-rem         Mark the sanbox directory as busted.
+rem         Mark the sandbox directory as busted.
 rem
 rem ----------------------------------------------------------------------------
 
