@@ -255,8 +255,8 @@ rem
 rem ----------------------------------------------------------------------------
 call %perforce_tools%\batch_substitute.bat UUUU %user_name% %perforce_tools%\optia_local_template.tmp > %workspace%
 P4 -u %user_name% client -i < %workspace%
-set P4CLIENT=optia_local_swqa_trunk
-P4 -u %user_name% sync -f //depot/main/embedded/Taos/Taos/... >> %sandboxDirectory%\perforce.log 2>&1
+set P4CLIENT=optia_v12_qa_build
+P4 -u %user_name% sync -f //depot/main/embedded/Taos/Taos_v12_19.373/... >> %sandboxDirectory%\perforce.log 2>&1
 
 rem ----------------------------------------------------------------------------
 rem
@@ -293,7 +293,7 @@ P4  label -i < %residue%/optia_label.tmp
 P4  label -o %current_build_label% >> %sandboxDirectory%\perforce.log 2>&1
 
 P4  -u %user_name% label -o %current_build_label% >> %sandboxDirectory%\perforce.log 2>&1
-P4  -u %user_name% tag -l %current_build_label% //optia_local_swqa_trunk/...   >> %sandboxDirectory%\perforce.log 2>&1
+P4  -u %user_name% tag -l %current_build_label% //optia_v12_qa_build/...   >> %sandboxDirectory%\perforce.log 2>&1
 
 rem ----------------------------------------------------------------------------
 rem
@@ -303,7 +303,7 @@ rem ----------------------------------------------------------------------------
 
 if "%prev_build_exists%"=="true" ( 
 echo Logging changes from prev build in file_differences.txt >> %sandboxDirectory%\perforce.log 2>&1
-P4  -u %user_name% diff2 -u //depot/main/Embedded/Taos/taos...@%current_build_label% //depot/main/Embedded/Taos/taos...@%prev_build_label% > %sandboxDirectory%\file_differences.txt
+P4  -u %user_name% diff2 -u //depot/main/Embedded/Taos/Taos_v12_19.373...@%current_build_label% //depot/main/Embedded/Taos/Taos_v12_19.373...@%prev_build_label% > %sandboxDirectory%\file_differences.txt
 )
 echo %current_build_label% > %current_build%
 
@@ -413,7 +413,7 @@ rem
 rem ----------------------------------------------------------------------------
 
 :removeClient
-p4 workspace -d optia_local_swqa_trunk
+p4 workspace -d optia_v12_qa_build
 
 :end_of_script
 popd
