@@ -27,7 +27,7 @@ Owner:	UUUU
 Description:
 	Created by UUUU.
 
-Root:	C:\dev\jenkins\workspace\OptiaV12ReleaseBranchQABuild\taos_build
+Root:	C:\dev\jenkins\workspace\OptiaQABuild_V12_Branch\taos_build
 
 Options:	noallwrite noclobber nocompress unlocked nomodtime normdir
 
@@ -37,4 +37,4 @@ LineEnd:	unix
 
 View:
    //depot/main/Embedded/Taos/Taos_v12_19.373/... //optia_v12_qa_build/...
-   //depot/main/embedded/Common_6.9/... //optia_v12_qa_build/Common/...
+   //depot/main/embedded/Common_6.9/... //optia_v12_qa_build/common/...

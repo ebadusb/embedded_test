@@ -285,9 +285,11 @@ del /F /Q %sandboxDirectory%\project_revision
 call %perforce_tools%\batch_substitute.bat BB %build% %perforce_tools%\project_revision.tmp > %sandboxDirectory%\project_revision
 
 call %perforce_tools%\batch_substitute.bat LLLL %current_build_label% %perforce_tools%\optia_label_template.tmp > %residue%\label_1.tmp
+type %residue%\label_1.tmp
 call %perforce_tools%\batch_substitute.bat UUUU %user_name% %residue%\label_1.tmp > %residue%\label_2.tmp
+type %residue%\label_2.tmp
 call %perforce_tools%\batch_substitute.bat BBB %build% %residue%\label_2.tmp > %residue%/optia_label.tmp
-
+type %residue%\optia_label.tmp
 P4  label -i < %residue%/optia_label.tmp
 
 P4  label -o %current_build_label% >> %sandboxDirectory%\perforce.log 2>&1
@@ -303,7 +305,7 @@ rem ----------------------------------------------------------------------------
 
 if "%prev_build_exists%"=="true" ( 
 echo Logging changes from prev build in file_differences.txt >> %sandboxDirectory%\perforce.log 2>&1
-P4  -u %user_name% diff2 -u //depot/main/Embedded/Taos/Taos_v12_19.373...@%current_build_label% //depot/main/Embedded/Taos/Taos_v12_19.373...@%prev_build_label% > %sandboxDirectory%\file_differences.txt
+P4  -u %user_name% diff2 -u //depot/main/Embedded/Taos/Taos_v12_19.373/...@%current_build_label% //depot/main/Embedded/Taos/Taos_v12_19.373/...@%prev_build_label% > %sandboxDirectory%\file_differences.txt
 )
 echo %current_build_label% > %current_build%
 
